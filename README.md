@@ -73,7 +73,7 @@ jobs:
     - uses: actions/checkout@master
     - name: Increment version
       id: version
-      uses: Blazemeter/vumper@master
+      uses: Blazemeter/vumper@v2
       with:
         file_name: './VERSION'
         tag_version: "true"
