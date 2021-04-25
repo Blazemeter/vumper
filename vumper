@@ -14,7 +14,7 @@ sed -i'' -r 's@(^.*)([[:digit:]]+\.[[:digit:]]+\.)([[:digit:]]+)(.*$)@printf "%s
 # git commit ...
 git add "$1" && git commit -m "Incremented to $(cat "$1")" -m "[skip ci]"
 
-( [ -n "$2" ] && [ "$2" = "true" ] ) && ( git tag -a "$(cat "$1")" -m "[skip ci]" ) || echo "No tag created"
+[ -n "$2" -a "x$2x" = "xtruex" ] || echo "No tag created" && ( git tag -a "$(cat "$1")" -m "[skip ci]" )
 
 # git push ...
 git push --follow-tags "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:${GITHUB_REF}
