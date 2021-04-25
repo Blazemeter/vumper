@@ -9,12 +9,19 @@ git config --global user.name "vumper"
 [ "x${GITHUB_EVENT_NAME}x" = "xpushx" ] || { GITHUB_REF=${GITHUB_HEAD_REF} && git checkout ${GITHUB_REF}; } && git pull
 
 # bump version ...
+version=$(cat "$1")
 sed -i'' -r 's@(^.*)([[:digit:]]+\.[[:digit:]]+\.)([[:digit:]]+)(.*$)@printf "%s" "\1\2$(echo 1+\3 | bc)\4"@ge' "$1"
+bersion=$(cat "$1")
 
 # git commit ...
-git add "$1" && git commit -m "Incremented to $(cat "$1")" -m "[skip ci]"
+git add "$1" && git commit -m "Version bump: $version ->L $bersion" -m "[skip ci]"
 
-[ -n "$2" -a "x$2x" = "xtruex" ] || echo "No tag created" && ( git tag -a "$(cat "$1")" -m "[skip ci]" )
+# git tag? ...
+if [ "x$2x" = "xtruex" ]; then
+  git tag -a "$(cat "$1")" -m "[skip ci]"
+else
+  echo "No tag created"
+fi
 
 # git push ...
 git push --follow-tags "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:${GITHUB_REF}
