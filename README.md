@@ -67,7 +67,7 @@ on: [push, pull_request]  # Recommended to use either of one event
 
 jobs:
   Version-check:
-    runs-on: alpine-latest
+    runs-on: ubuntu-latest
     name: Vumper
     steps:
     - uses: actions/checkout@master
