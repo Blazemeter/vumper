@@ -14,7 +14,7 @@ sed -i'' -r 's@(^.*)([[:digit:]]+\.[[:digit:]]+\.)([[:digit:]]+)(.*$)@printf "%s
 bersion=$(cat "$1")
 
 # git commit ...
-git add "$1" && git commit -m "Version bump: $version ->L $bersion" -m "[skip ci]"
+git add "$1" && git commit -m "Version bump: $version -> $bersion" -m "[skip ci]"
 
 # git tag? ...
 if [ "x$2x" = "xtruex" ]; then
